@@ -20,6 +20,7 @@ import java.awt.event.KeyListener;
 import java.util.ArrayList;
 import java.util.Random;
 import javax.swing.BorderFactory;
+import javax.swing.ImageIcon;
 import javax.swing.JPanel;
 import javax.swing.Timer;
 
@@ -34,23 +35,27 @@ public class Universo extends JPanel {
     private Paleta paleta;
     private static Ladrillo ladrillo;
     public static ArrayList<Ladrillo> mapa = new ArrayList<>();
-   
+    public static ArrayList<Objeto> pelotas2 = new ArrayList<>();
+    Image fondo;
 
     
     public Universo(Dimension d, Objeto pelota, Ladrillo ladrillo, Paleta paleta) {
-    
+        
         this.setSize(d);
         this.setPreferredSize(d);
         this.setBorder(BorderFactory.createLineBorder(Color.BLUE));
-        this.setBackground(Color.WHITE);
+        this.setBackground(Color.CYAN);
         
         this.random = new Random();
         this.pelota = pelota;
         this.paleta = paleta;
         this.ladrillo = ladrillo;
+        
+        
+        //this.pelotas2.add(pelota);
        
         
-       
+        
         
         for (int i = 0; i < JuegoDeLadrillos.map.size(); i++){
             //for( int j = 0; j < 21; j++) {
@@ -82,6 +87,11 @@ public class Universo extends JPanel {
         }
     }
     
+    public void agregarPelotas (Objeto pelota) {
+    
+        this.pelotas2.add(pelota);
+    }
+    
     public void agregarObjeto (Objeto pelota) {
         this.pelota = pelota;
         //this.pelota.limitesXY(this.getWidth(),this.getHeight());
@@ -107,15 +117,27 @@ public class Universo extends JPanel {
      @Override
     public void paintComponent(Graphics g) {
         // Llama al método paintComponent de la superclase
+        fondo = new ImageIcon(getClass().getResource("/Imagen/bg2.png")).getImage();
+        g.drawImage(fondo, 0, 0, getWidth(), getHeight(), this);
+        setOpaque(false);
+       
+        //super.paint(g);
         super.paintComponent(g);
         
-        this.pelota.dibujar(g);
+        //this.pelota.dibujar(g);
         this.paleta.dibujar(g);
         for (int i = 0; i < mapa.size(); i++){
             this.ladrillo = mapa.get(i);
             
             this.ladrillo.dibujar(g);
               
+        }
+        
+        for (int i = 0; i < pelotas2.size(); i++) {
+        
+            
+            this.pelota = pelotas2.get(i);
+            this.pelota.dibujar(g);
         }
         /*
         if(JuegoDeLadrillos.lost == true) {

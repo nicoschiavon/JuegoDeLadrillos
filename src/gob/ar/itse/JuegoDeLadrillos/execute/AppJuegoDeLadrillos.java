@@ -4,7 +4,9 @@
  */
 package gob.ar.itse.JuegoDeLadrillos.execute;
 
+import gob.ar.itse.JuegoDeLadrillos.controller.PrincipalController;
 import gob.ar.itse.JuegoDeLadrillos.view.JuegoDeLadrillos;
+import gob.ar.itse.JuegoDeLadrillos.view.PrincipalView;
 
 /**
  *
@@ -18,7 +20,8 @@ public class AppJuegoDeLadrillos {
     public static void main(String[] args) {
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new JuegoDeLadrillos().setVisible(true);
+                //new JuegoDeLadrillos().setVisible(true);
+                new PrincipalController().mostrar();
             }
         });
     }

@@ -25,11 +25,11 @@ public class Ladrillo {
     public int brickWidth;
     public int brickHeight;
     
-    public Ladrillo(int ladrilloX, int ladrilloY) {
+    public Ladrillo(int ladrilloX, int ladrilloY, Image img) {
         
         this.ladrilloX = ladrilloX;
         this.ladrilloY = ladrilloY;
-        this.imgObjeto = new ImageIcon(getClass().getClassLoader().getResource("imagen/brick.png")).getImage();
+        this.imgObjeto = img;
         this.brickHeight =  imgObjeto.getHeight(null);
         this.brickWidth = imgObjeto.getWidth(null);
           

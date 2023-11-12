@@ -3,14 +3,17 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
  */
 package gob.ar.itse.JuegoDeLadrillos.view;
-
+import gob.ar.itse.JuegoDeLadrillos.controller.RankingController;
 import gob.ar.itse.JuegoDeLadrillo.model.Ladrillo;
 import gob.ar.itse.JuegoDeLadrillo.model.Objeto;
 import gob.ar.itse.JuegoDeLadrillo.model.Paleta;
+import gob.ar.itse.JuegoDeLadrillo.model.Ranking;
+import gob.ar.itse.JuegoDeLadrillos.controller.PrincipalController;
 import gob.ar.itse.JuegoDeLadrillos.controller.Universo;
 import java.awt.BorderLayout;
 import java.awt.Dimension;
 import java.awt.Font;
+import java.awt.Graphics;
 import java.awt.Image;
 import java.awt.Rectangle;
 import java.awt.Toolkit;
@@ -23,7 +26,9 @@ import java.util.HashSet;
 import java.util.Iterator;
 import java.util.Map;
 import java.util.Random;
+import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
+import javax.swing.JPanel;
 import javax.swing.Timer;
 
 /**
@@ -36,28 +41,35 @@ public class JuegoDeLadrillos extends javax.swing.JFrame implements KeyListener,
     private Objeto pelota;
     private Paleta paleta;
     private Ladrillo ladrillo;
-    private Random random;
+    private int random;
     public static ArrayList<Ladrillo> map = new ArrayList<Ladrillo>();
     public static boolean play = false;
     public static int score = 0;
-    private int delay = 8;
+    private int delay = 5;
     private Timer timer;
     public int mapSize;
     public static boolean lost = false;
     public static boolean win = false;
     private int nivel;
     public ArrayList<String> ranking =  new ArrayList<String>();
-    public String iniciales;
+    public static String iniciales;
     public int uniH;
     public int uniW;
+    private Image img;
+    public Ranking rankingIn = new Ranking();
+    public RankingController rankingController = new RankingController();
+    //public ArrayList<Objeto> pelotas = new ArrayList<Objeto>();
+    
     
     /**
      * Creates new form JuegoDeLadrillos
      */
     public JuegoDeLadrillos() {
+        
         initComponents();
          Toolkit tk = Toolkit.getDefaultToolkit();
         Dimension d =  tk.getScreenSize();
+        
         uniH = (int)d.getHeight();
         uniW = (int)d.getWidth();
         mniIniciar.setEnabled(false);
@@ -71,19 +83,21 @@ public class JuegoDeLadrillos extends javax.swing.JFrame implements KeyListener,
         timer = new Timer(delay, this);
         
         
-        this.random = new Random();
+        
 
         
         this.paleta = new Paleta(uniW / 2, uniH - 200);
         this.pelota = new Objeto(uniW / 2 + (paleta.paletaWidth/2), uniH - 230);
+        Universo.pelotas2.add(pelota);
+        //Universo.pelotas2.add(pelota);
         this.universo = new Universo(this.getSize(), this.pelota, this.ladrillo, this.paleta);
 
         this.setLayout(new BorderLayout());
 
         this.add(this.universo, BorderLayout.CENTER);
-
-        this.universo.agregarObjeto(pelota);
-        this.universo.agregarPaleta(paleta);
+        
+        //this.universo.agregarObjeto(pelota);
+       // this.universo.agregarPaleta(paleta);
         
         
         
@@ -99,6 +113,7 @@ public class JuegoDeLadrillos extends javax.swing.JFrame implements KeyListener,
     private void initComponents() {
 
         jMenu2 = new javax.swing.JMenu();
+        btnReturn = new javax.swing.JButton();
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu1 = new javax.swing.JMenu();
         mniIniciar = new javax.swing.JMenuItem();
@@ -113,6 +128,20 @@ public class JuegoDeLadrillos extends javax.swing.JFrame implements KeyListener,
         jMenu2.setText("jMenu2");
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setTitle("BrickGame");
+        setBackground(new java.awt.Color(204, 204, 255));
+        setIconImage(img);
+
+        btnReturn.setIcon(new javax.swing.ImageIcon("C:\\Users\\nico_\\OneDrive\\Documentos\\NetBeansProjects\\New Folder\\JuegoDeLadrillosV4\\JuegoDeLadrillos\\resources\\Imagen\\return.png")); // NOI18N
+        btnReturn.setFocusPainted(false);
+        btnReturn.setFocusable(false);
+        btnReturn.setVerticalAlignment(javax.swing.SwingConstants.BOTTOM);
+        btnReturn.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        btnReturn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnReturnActionPerformed(evt);
+            }
+        });
 
         jMenu1.setText("File");
 
@@ -153,6 +182,7 @@ public class JuegoDeLadrillos extends javax.swing.JFrame implements KeyListener,
 
         mniNiveles.setText("Niveles");
 
+        mniNivel1.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_1, 0));
         mniNivel1.setText("Nivel 1");
         mniNivel1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -161,6 +191,7 @@ public class JuegoDeLadrillos extends javax.swing.JFrame implements KeyListener,
         });
         mniNiveles.add(mniNivel1);
 
+        mniNivel2.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_2, 0));
         mniNivel2.setText("Nivel 2");
         mniNivel2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -169,6 +200,7 @@ public class JuegoDeLadrillos extends javax.swing.JFrame implements KeyListener,
         });
         mniNiveles.add(mniNivel2);
 
+        mniNivel3.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_3, 0));
         mniNivel3.setText("Nivel 3");
         mniNivel3.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -185,11 +217,16 @@ public class JuegoDeLadrillos extends javax.swing.JFrame implements KeyListener,
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 400, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addComponent(btnReturn)
+                .addGap(0, 845, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 277, Short.MAX_VALUE)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap(652, Short.MAX_VALUE)
+                .addComponent(btnReturn)
+                .addGap(0, 0, 0))
         );
 
         pack();
@@ -223,7 +260,8 @@ public class JuegoDeLadrillos extends javax.swing.JFrame implements KeyListener,
     }//GEN-LAST:event_mniNivel1ActionPerformed
 
     private void mniSalirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mniSalirActionPerformed
-        System.exit(0);
+        //System.exit(0);
+        this.setVisible(false);
     }//GEN-LAST:event_mniSalirActionPerformed
 
     private void mniNivel2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mniNivel2ActionPerformed
@@ -245,6 +283,14 @@ public class JuegoDeLadrillos extends javax.swing.JFrame implements KeyListener,
     private void mniRankingActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mniRankingActionPerformed
         JOptionPane.showMessageDialog(rootPane, ranking);
     }//GEN-LAST:event_mniRankingActionPerformed
+
+    private void btnReturnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnReturnActionPerformed
+        
+        this.dispose();
+        PrincipalController pri;
+        pri = new PrincipalController();
+        pri.mostrar();
+    }//GEN-LAST:event_btnReturnActionPerformed
 
     @Override
     public void keyTyped(KeyEvent e) {
@@ -282,10 +328,223 @@ public class JuegoDeLadrillos extends javax.swing.JFrame implements KeyListener,
 
     @Override
     public void actionPerformed(ActionEvent e) {
+        
+        System.out.println("x: " + pelota.ballPosX + "y: " + pelota.ballPosY);
         timer.start();
-         
+        int in = 1;
+        
         if(play) {
-            //Intersección Paleta y Pelota
+            
+            
+            for (int i = 0; i < Universo.pelotas2.size(); i++) {
+                
+                
+                System.out.println("Primera pelota " + Universo.pelotas2.size());
+                pelota = Universo.pelotas2.get(i);
+                
+                //Intersección Paleta y Pelota
+                Rectangle r1 = new Rectangle(pelota.ballPosX, pelota.ballPosY, pelota.ballwidth, pelota.ballheight);
+                Rectangle r2 = new Rectangle(paleta.paletaPosX, paleta.paletaPosY, paleta.paletaWidth, paleta.paletaHeight);
+                if (r1.intersects(r2)) {
+
+                     if(pelota.ballPosX + pelota.ballwidth == paleta.paletaPosX){
+                         pelota.ballYdir =- pelota.ballYdir;
+                     }else if(pelota.ballPosX == paleta.paletaPosX + paleta.paletaWidth) {
+                         pelota.ballYdir =- pelota.ballYdir;
+                     }
+                     pelota.ballYdir = - pelota.ballYdir;
+                 } 
+
+                pelota.ballPosX += pelota.ballXdir;
+                pelota.ballPosY += pelota.ballYdir;
+
+                if (pelota.ballPosX < 0) {
+                    pelota.ballXdir =- pelota.ballXdir;
+                }
+
+                if (pelota.ballPosY < 0) {
+                    pelota.ballPosY = 2;
+                    pelota.ballYdir =- pelota.ballYdir;
+                }
+
+                if (pelota.ballPosX > uniW) {
+                    pelota.ballXdir =- pelota.ballXdir;
+                }
+
+                 //Intersección Ladrillo Y Pelota
+                for (int j = 0; j < map.size(); j++) {
+
+                    this.ladrillo = map.get(j);
+                    Rectangle ladrilloRec = new Rectangle(this.ladrillo.ladrilloX, this.ladrillo.ladrilloY, this.ladrillo.brickWidth, this.ladrillo.brickHeight);
+                    Rectangle bolaRec = new Rectangle(this.pelota.ballPosX, this.pelota.ballPosY, this.pelota.ballwidth, this.pelota.ballheight);
+
+                    if(bolaRec.intersects(ladrilloRec)) {
+
+                        map.remove(this.ladrillo);
+                        score = score + 50;
+                        ladrillo.ladrilloX = 0;
+                        ladrillo.ladrilloY = 0;
+                        System.out.println("score: " + score);
+                        Universo.actualizarLadrillo();
+
+                        pelota.ballYdir =- pelota.ballYdir;
+
+
+                        random = (int) (Math.random() * 100) + 1;
+
+                    if (random < 30 && Universo.pelotas2.size() <=  2 ) {
+
+                        this.pelota = new Objeto(pelota.ballPosX, pelota.ballPosY);
+
+                        //pelotas.add(pelota);
+                        Universo.pelotas2.add(pelota);
+                        pelota = Universo.pelotas2.get(i);
+
+                    }
+                    
+                   
+                }
+
+            }
+            
+  
+            
+                System.out.println("a" + Universo.pelotas2.size());
+            //Perder
+            if (pelota.ballPosY > uniH) {
+                
+                System.out.println(pelota.ballPosY + " " + (uniH ));
+           
+                
+                if (Universo.pelotas2.size() > 1) {
+                    
+                
+                Universo.pelotas2.remove(Universo.pelotas2.size()-1);
+                pelota = Universo.pelotas2.get(Universo.pelotas2.size()-1);
+                
+                System.out.println("b " + Universo.pelotas2.size());
+                    
+                } else  {
+                
+                    Universo.pelotas2.remove(pelota);
+                    play = false;
+                    timer.stop();
+                    mniNivel1.setEnabled(true);
+                    mniNivel2.setEnabled(true);
+                    mniNivel3.setEnabled(true);
+                    pelota = new Objeto(uniW / 2 + (paleta.paletaWidth/2), uniH - 230);
+                    
+                    Universo.pelotas2.add(pelota);
+                    
+                    paleta.paletaPosX = uniW / 2;
+                    mniIniciar.setEnabled(false);
+                    mniParar.setEnabled(false);
+                    lost = true;
+                    map.clear();
+                    Universo.actualizarLadrillo();
+                    repaint();
+                    iniciales = JOptionPane.showInputDialog("Ingrese su nombre");
+                    ranking.add(iniciales);
+                    ranking.add(String.valueOf(score));
+
+
+
+                    rankingIn.setNombre(iniciales);
+                    rankingIn.setScore(score);
+                    rankingIn.setPos(in);
+                    in++;
+                    rankingController.envAgregar(rankingIn);
+                    
+                }
+                
+                
+                
+                /*
+                if (Universo.pelotas2.size()== 0) {
+                
+                    play = false;
+                    timer.stop();
+                    mniNivel1.setEnabled(true);
+                    mniNivel2.setEnabled(true);
+                    mniNivel3.setEnabled(true);
+                    pelota.ballPosX = uniW / 2 + (paleta.paletaWidth/2);
+
+                    pelota.ballPosY = uniH - 230;
+                    
+                    Universo.pelotas2.add(pelota);
+                    
+                    paleta.paletaPosX = uniW / 2;
+                    mniIniciar.setEnabled(false);
+                    mniParar.setEnabled(false);
+                    lost = true;
+                    map.clear();
+                    Universo.actualizarLadrillo();
+                    repaint();
+                    iniciales = JOptionPane.showInputDialog("Ingrese su nombre");
+                    ranking.add(iniciales);
+                    ranking.add(String.valueOf(score));
+
+
+
+                    rankingIn.setNombre(iniciales);
+                    rankingIn.setScore(score);
+                    rankingIn.setPos(in);
+                    in++;
+                    rankingController.envAgregar(rankingIn);
+                    break;
+                } */
+                
+                
+                
+               
+                
+            } else {
+                // Ganar 
+                if(map.isEmpty()) {
+                    timer.stop();
+
+                    pelota.ballPosX = uniW / 2;
+                    pelota.ballPosY = (uniH / 2 + 200);
+
+                    if(pelota.ballXdir > 0) {
+                        pelota.ballYdir =- pelota.ballYdir;
+                        pelota.ballXdir =- pelota.ballXdir;
+                    }
+                    mniIniciar.setEnabled(true);
+                    mniParar.setEnabled(false);
+                    System.out.println("Nivel: "+ nivel);
+                    switch (nivel){
+                            case 1:
+                                nivel = 2;
+                                nivel2();
+                                break;
+                            case 2:
+                                nivel = 3;
+                                nivel3();
+                                break;
+                            case 3:
+                                pelota.ballXdir = pelota.ballXdir -2;
+                                pelota.ballYdir = pelota.ballYdir -2;
+                                nivel = 1;
+                                nivel1();
+                                break;
+                    }
+                }
+            }
+            
+            
+            
+         
+                
+                
+                
+                
+                
+                
+            }            
+            
+            
+            /*Intersección Paleta y Pelota
             Rectangle r1 = new Rectangle(pelota.ballPosX, pelota.ballPosY, pelota.ballwidth, pelota.ballheight);
             Rectangle r2 = new Rectangle(paleta.paletaPosX, paleta.paletaPosY, paleta.paletaWidth, paleta.paletaHeight);
             if (r1.intersects(r2)) {
@@ -341,8 +600,8 @@ public class JuegoDeLadrillos extends javax.swing.JFrame implements KeyListener,
                 pelota.ballPosX = uniW / 2 + (paleta.paletaWidth/2);
                 
                 pelota.ballPosY = uniH - 230;
-                pelota.ballYdir = -4;
-                pelota.ballYdir = -4;
+                pelota.ballYdir = -6;
+                pelota.ballYdir = -6;
                 paleta.paletaPosX = uniW / 2;
                 mniIniciar.setEnabled(false);
                 mniParar.setEnabled(false);
@@ -350,9 +609,23 @@ public class JuegoDeLadrillos extends javax.swing.JFrame implements KeyListener,
                 map.clear();
                 Universo.actualizarLadrillo();
                 repaint();
-                iniciales = JOptionPane.showInputDialog("Ingrese sus iniciales");
+                iniciales = JOptionPane.showInputDialog("Ingrese su nombre");
                 ranking.add(iniciales);
                 ranking.add(String.valueOf(score));
+                
+                for (int i = 0; i < ranking.size(); i++ ) {
+                
+                    for (int j = i + 1; j < ranking.size(); j++) {
+                    
+                    
+                    }
+                }
+                
+                rankingIn.setNombre(iniciales);
+                rankingIn.setScore(score);
+                rankingIn.setPos(in);
+                in++;
+                rankingController.envAgregar(rankingIn);
                 
             } else {
                 // Ganar 
@@ -389,9 +662,15 @@ public class JuegoDeLadrillos extends javax.swing.JFrame implements KeyListener,
             }
             
             
-            
+            */
+            repaint();
          }
-         repaint();
+         
+    }
+    
+     public void mostrar() {
+        this.toFront();
+        this.setVisible(true);
     }
     //Nivel 1
     public void nivel1(){
@@ -400,10 +679,12 @@ public class JuegoDeLadrillos extends javax.swing.JFrame implements KeyListener,
         repaint();
         nivel = 1;
         
+        
+        Image img = new ImageIcon(getClass().getClassLoader().getResource("imagen/dolar.png")).getImage();
         for (int i = 0; i < 4; i++) {
             int j = 0;
             while(j * 88 < uniW){
-            this.ladrillo = new Ladrillo(j * 107 , i * 40 );
+            this.ladrillo = new Ladrillo(j * 107 , i * 40, img );
                 this.map.add(this.ladrillo);
             j++;
             }
@@ -431,11 +712,11 @@ public class JuegoDeLadrillos extends javax.swing.JFrame implements KeyListener,
         Universo.actualizarLadrillo();
         repaint();
         nivel = 2;
-        
+        Image img = new ImageIcon(getClass().getClassLoader().getResource("imagen/celeste.png")).getImage();
         for (int i = 0; i < 5; i++) {
             int j = 0;
             while(j * 88 < uniW){
-            this.ladrillo = new Ladrillo(j * 107 , i * 40 );
+            this.ladrillo = new Ladrillo(j * 107 , i * 40, img );
                 this.map.add(this.ladrillo);
             j++;
             }
@@ -463,11 +744,22 @@ public class JuegoDeLadrillos extends javax.swing.JFrame implements KeyListener,
         Universo.actualizarLadrillo();
         repaint();
         nivel = 3;
-        
+        Image img = new ImageIcon(getClass().getClassLoader().getResource("imagen/celeste.png")).getImage();
+        Image img2 = new ImageIcon(getClass().getClassLoader().getResource("imagen/blanco.png")).getImage();
         for (int i = 0; i < 6; i++) {
             int j = 0;
             while(j * 88 < uniW){
-            this.ladrillo = new Ladrillo(j * 107 , i * 40 );
+                
+                if (i > 1 && i < 4) {
+                
+                  this.ladrillo = new Ladrillo(j * 107 , i * 40, img2 );
+                } else {
+                
+                    this.ladrillo = new Ladrillo(j * 107 , i * 40, img );
+                }
+                
+                
+            
                 this.map.add(this.ladrillo);
             j++;
             }
@@ -495,6 +787,7 @@ public class JuegoDeLadrillos extends javax.swing.JFrame implements KeyListener,
      */
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnReturn;
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenu jMenu2;
     private javax.swing.JMenuBar jMenuBar1;
@@ -507,4 +800,8 @@ public class JuegoDeLadrillos extends javax.swing.JFrame implements KeyListener,
     private javax.swing.JMenuItem mniRanking;
     private javax.swing.JMenuItem mniSalir;
     // End of variables declaration//GEN-END:variables
+
+
+
+
 }

@@ -20,8 +20,8 @@ public class Objeto {
     private Image imgObjeto;
     public int ballPosX;
     public int ballPosY = 400;
-    public int ballXdir =-4;
-    public int ballYdir = -4;
+    public int ballXdir =-6;
+    public int ballYdir = -6;
     public int ballwidth;
     public int ballheight;
     private int limiteIzquierdo = 0;
@@ -35,7 +35,7 @@ public class Objeto {
     public Objeto (int x, int y) {
        this.ballPosX = x;
        this.ballPosY = y;
-       this.imgObjeto = new ImageIcon(getClass().getClassLoader().getResource("imagen/Ball.png")).getImage();
+       this.imgObjeto = new ImageIcon(getClass().getClassLoader().getResource("imagen/Ball2.png")).getImage();
        this.ballheight = imgObjeto.getHeight(null);
        this.ballwidth = imgObjeto.getWidth(null);
        this.imagen = imagen;
