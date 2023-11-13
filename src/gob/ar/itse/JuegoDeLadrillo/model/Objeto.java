@@ -32,10 +32,10 @@ public class Objeto {
    
    
    //Constructor
-    public Objeto (int x, int y) {
+    public Objeto (int x, int y, Image img) {
        this.ballPosX = x;
        this.ballPosY = y;
-       this.imgObjeto = new ImageIcon(getClass().getClassLoader().getResource("imagen/Ball2.png")).getImage();
+       this.imgObjeto = img;
        this.ballheight = imgObjeto.getHeight(null);
        this.ballwidth = imgObjeto.getWidth(null);
        this.imagen = imagen;

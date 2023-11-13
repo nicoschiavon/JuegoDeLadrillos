@@ -36,7 +36,7 @@ public class Universo extends JPanel {
     private static Ladrillo ladrillo;
     public static ArrayList<Ladrillo> mapa = new ArrayList<>();
     public static ArrayList<Objeto> pelotas2 = new ArrayList<>();
-    Image fondo;
+    public static Image fondo;
 
     
     public Universo(Dimension d, Objeto pelota, Ladrillo ladrillo, Paleta paleta) {
@@ -117,7 +117,7 @@ public class Universo extends JPanel {
      @Override
     public void paintComponent(Graphics g) {
         // Llama al método paintComponent de la superclase
-        fondo = new ImageIcon(getClass().getResource("/Imagen/bg2.png")).getImage();
+        //fondo = new ImageIcon(getClass().getResource("/Imagen/bg2.png")).getImage();
         g.drawImage(fondo, 0, 0, getWidth(), getHeight(), this);
         setOpaque(false);
        

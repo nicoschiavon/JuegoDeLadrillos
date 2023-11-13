@@ -117,20 +117,12 @@ public class RankingController implements ActionListener {
             
             switch (opcionSeleccionada) {
             
-                case "Ultimos Jugadores":
-                    System.out.println("Ultimos");
-                    break;
-                case "Top 10":
-                    envBuscar10();
-                    break;
-                case "Top 100":
-                    System.out.println("100");
-                    break;
-                case "Top 1000":
-                    System.out.println("1000");
-                    break;
-                default:
-                    break;
+                case "Ultimos Jugadores" -> System.out.println("Ultimos");
+                case "Top 10" -> envBuscar10();
+                case "Top 100" -> System.out.println("100");
+                case "Top 1000" -> System.out.println("1000");
+                default -> {
+                }
             }
         }
         

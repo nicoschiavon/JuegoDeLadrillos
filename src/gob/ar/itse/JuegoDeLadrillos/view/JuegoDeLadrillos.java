@@ -8,6 +8,7 @@ import gob.ar.itse.JuegoDeLadrillo.model.Ladrillo;
 import gob.ar.itse.JuegoDeLadrillo.model.Objeto;
 import gob.ar.itse.JuegoDeLadrillo.model.Paleta;
 import gob.ar.itse.JuegoDeLadrillo.model.Ranking;
+import gob.ar.itse.JuegoDeLadrillos.controller.JugadoresController;
 import gob.ar.itse.JuegoDeLadrillos.controller.PrincipalController;
 import gob.ar.itse.JuegoDeLadrillos.controller.Universo;
 import java.awt.BorderLayout;
@@ -84,10 +85,13 @@ public class JuegoDeLadrillos extends javax.swing.JFrame implements KeyListener,
         
         
         
-
+        Image img2;
+        
+        
+        img2 = new ImageIcon(getClass().getClassLoader().getResource("imagen/ball5.png")).getImage();
         
         this.paleta = new Paleta(uniW / 2, uniH - 200);
-        this.pelota = new Objeto(uniW / 2 + (paleta.paletaWidth/2), uniH - 230);
+        this.pelota = new Objeto(uniW / 2 + (paleta.paletaWidth/2), uniH - 230, img2);
         Universo.pelotas2.add(pelota);
         //Universo.pelotas2.add(pelota);
         this.universo = new Universo(this.getSize(), this.pelota, this.ladrillo, this.paleta);
@@ -121,9 +125,6 @@ public class JuegoDeLadrillos extends javax.swing.JFrame implements KeyListener,
         mniRanking = new javax.swing.JMenuItem();
         mniSalir = new javax.swing.JMenuItem();
         mniNiveles = new javax.swing.JMenu();
-        mniNivel1 = new javax.swing.JMenuItem();
-        mniNivel2 = new javax.swing.JMenuItem();
-        mniNivel3 = new javax.swing.JMenuItem();
 
         jMenu2.setText("jMenu2");
 
@@ -132,7 +133,7 @@ public class JuegoDeLadrillos extends javax.swing.JFrame implements KeyListener,
         setBackground(new java.awt.Color(204, 204, 255));
         setIconImage(img);
 
-        btnReturn.setIcon(new javax.swing.ImageIcon("C:\\Users\\nico_\\OneDrive\\Documentos\\NetBeansProjects\\New Folder\\JuegoDeLadrillosV4\\JuegoDeLadrillos\\resources\\Imagen\\return.png")); // NOI18N
+        btnReturn.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagen/return.png"))); // NOI18N
         btnReturn.setFocusPainted(false);
         btnReturn.setFocusable(false);
         btnReturn.setVerticalAlignment(javax.swing.SwingConstants.BOTTOM);
@@ -181,34 +182,6 @@ public class JuegoDeLadrillos extends javax.swing.JFrame implements KeyListener,
         jMenuBar1.add(jMenu1);
 
         mniNiveles.setText("Niveles");
-
-        mniNivel1.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_1, 0));
-        mniNivel1.setText("Nivel 1");
-        mniNivel1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                mniNivel1ActionPerformed(evt);
-            }
-        });
-        mniNiveles.add(mniNivel1);
-
-        mniNivel2.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_2, 0));
-        mniNivel2.setText("Nivel 2");
-        mniNivel2.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                mniNivel2ActionPerformed(evt);
-            }
-        });
-        mniNiveles.add(mniNivel2);
-
-        mniNivel3.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_3, 0));
-        mniNivel3.setText("Nivel 3");
-        mniNivel3.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                mniNivel3ActionPerformed(evt);
-            }
-        });
-        mniNiveles.add(mniNivel3);
-
         jMenuBar1.add(mniNiveles);
 
         setJMenuBar(jMenuBar1);
@@ -244,49 +217,30 @@ public class JuegoDeLadrillos extends javax.swing.JFrame implements KeyListener,
         play = false;
         mniIniciar.setEnabled(true);
         mniParar.setEnabled(false);
-        mniNivel1.setEnabled(true);
-        mniNivel2.setEnabled(true);
-        mniNivel3.setEnabled(true);
+      
         
     }//GEN-LAST:event_mniPararActionPerformed
-
-    private void mniNivel1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mniNivel1ActionPerformed
-        mniIniciar.setEnabled(true);
-        mniNivel1.setEnabled(false);
-        mniNivel2.setEnabled(false);
-        mniNivel3.setEnabled(false);
-        nivel1();
-        
-    }//GEN-LAST:event_mniNivel1ActionPerformed
 
     private void mniSalirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mniSalirActionPerformed
         //System.exit(0);
         this.setVisible(false);
     }//GEN-LAST:event_mniSalirActionPerformed
 
-    private void mniNivel2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mniNivel2ActionPerformed
-        mniIniciar.setEnabled(true);
-        mniNivel1.setEnabled(false);
-        mniNivel2.setEnabled(false);
-        mniNivel3.setEnabled(false);
-        nivel2();
-    }//GEN-LAST:event_mniNivel2ActionPerformed
-
-    private void mniNivel3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mniNivel3ActionPerformed
-        mniIniciar.setEnabled(true);
-        mniNivel1.setEnabled(false);
-        mniNivel2.setEnabled(false);
-        mniNivel3.setEnabled(false);
-        nivel3();
-    }//GEN-LAST:event_mniNivel3ActionPerformed
-
     private void mniRankingActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mniRankingActionPerformed
         JOptionPane.showMessageDialog(rootPane, ranking);
     }//GEN-LAST:event_mniRankingActionPerformed
 
     private void btnReturnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnReturnActionPerformed
-        
+        Image img;
+        img = new ImageIcon(getClass().getClassLoader().getResource("imagen/Ball2.png")).getImage();
         this.dispose();
+        timer.stop();
+        play = false;
+        Universo.mapa.clear();
+        Universo.actualizarLadrillo();  
+        Universo.pelotas2.clear();
+        pelota = new Objeto(uniW / 2 + (paleta.paletaWidth/2), uniH - 230 , img);
+        Universo.pelotas2.add(pelota);
         PrincipalController pri;
         pri = new PrincipalController();
         pri.mostrar();
@@ -372,6 +326,8 @@ public class JuegoDeLadrillos extends javax.swing.JFrame implements KeyListener,
                 }
 
                  //Intersección Ladrillo Y Pelota
+                 Image img;
+                img = new ImageIcon(getClass().getClassLoader().getResource("imagen/Ball2.png")).getImage();
                 for (int j = 0; j < map.size(); j++) {
 
                     this.ladrillo = map.get(j);
@@ -394,7 +350,7 @@ public class JuegoDeLadrillos extends javax.swing.JFrame implements KeyListener,
 
                     if (random < 30 && Universo.pelotas2.size() <=  2 ) {
 
-                        this.pelota = new Objeto(pelota.ballPosX, pelota.ballPosY);
+                        this.pelota = new Objeto(pelota.ballPosX, pelota.ballPosY, img);
 
                         //pelotas.add(pelota);
                         Universo.pelotas2.add(pelota);
@@ -419,20 +375,18 @@ public class JuegoDeLadrillos extends javax.swing.JFrame implements KeyListener,
                 if (Universo.pelotas2.size() > 1) {
                     
                 
-                Universo.pelotas2.remove(Universo.pelotas2.size()-1);
-                pelota = Universo.pelotas2.get(Universo.pelotas2.size()-1);
-                
-                System.out.println("b " + Universo.pelotas2.size());
+                    Universo.pelotas2.remove(Universo.pelotas2.size()-1);
+                    pelota = Universo.pelotas2.get(Universo.pelotas2.size()-1);
+
+                    System.out.println("b " + Universo.pelotas2.size());
                     
                 } else  {
                 
                     Universo.pelotas2.remove(pelota);
                     play = false;
                     timer.stop();
-                    mniNivel1.setEnabled(true);
-                    mniNivel2.setEnabled(true);
-                    mniNivel3.setEnabled(true);
-                    pelota = new Objeto(uniW / 2 + (paleta.paletaWidth/2), uniH - 230);
+                    
+                    pelota = new Objeto(uniW / 2 + (paleta.paletaWidth/2), uniH - 230,img);
                     
                     Universo.pelotas2.add(pelota);
                     
@@ -453,8 +407,11 @@ public class JuegoDeLadrillos extends javax.swing.JFrame implements KeyListener,
                     rankingIn.setScore(score);
                     rankingIn.setPos(in);
                     in++;
-                    rankingController.envAgregar(rankingIn);
-                    
+                        rankingController.envAgregar(rankingIn);
+                        this.dispose();
+                    JugadoresController jugadores;
+                     jugadores = new JugadoresController();
+                    jugadores.mostrar();
                 }
                 
                 
@@ -610,7 +567,19 @@ public class JuegoDeLadrillos extends javax.swing.JFrame implements KeyListener,
                 Universo.actualizarLadrillo();
                 repaint();
                 iniciales = JOptionPane.showInputDialog("Ingrese su nombre");
-                ranking.add(iniciales);
+                ranking.add(iniciales)
+                rankingIn.setNombre(iniciales);
+                rankingIn.setScore(score);
+                rankingIn.setPos(in);
+                in++;
+                rankingController.envAgregar(rankingIn);
+                
+            } else {
+                // Ganar 
+                if(map.isEmpty()) {
+                    timer.stop();
+
+                    pelota.ballPosX = uniW / 2;;
                 ranking.add(String.valueOf(score));
                 
                 for (int i = 0; i < ranking.size(); i++ ) {
@@ -676,12 +645,13 @@ public class JuegoDeLadrillos extends javax.swing.JFrame implements KeyListener,
     public void nivel1(){
         Universo.mapa.clear();
         Universo.actualizarLadrillo();
+        System.out.println("se limpia");
         repaint();
         nivel = 1;
-        
+        mniIniciar.setEnabled(true);
         
         Image img = new ImageIcon(getClass().getClassLoader().getResource("imagen/dolar.png")).getImage();
-        for (int i = 0; i < 4; i++) {
+        for (int i = 0; i < 6; i++) {
             int j = 0;
             while(j * 88 < uniW){
             this.ladrillo = new Ladrillo(j * 107 , i * 40, img );
@@ -708,6 +678,7 @@ public class JuegoDeLadrillos extends javax.swing.JFrame implements KeyListener,
     }
     //Nivel 2
     public void nivel2(){
+        mniIniciar.setEnabled(true);
         Universo.mapa.clear();
         Universo.actualizarLadrillo();
         repaint();
@@ -740,12 +711,13 @@ public class JuegoDeLadrillos extends javax.swing.JFrame implements KeyListener,
     }
     //Nivel 3
     public void nivel3(){
+        mniIniciar.setEnabled(true);
         Universo.mapa.clear();
         Universo.actualizarLadrillo();
         repaint();
         nivel = 3;
-        Image img = new ImageIcon(getClass().getClassLoader().getResource("imagen/celeste.png")).getImage();
-        Image img2 = new ImageIcon(getClass().getClassLoader().getResource("imagen/blanco.png")).getImage();
+        Image img = new ImageIcon(getClass().getClassLoader().getResource("imagen/duracell.png")).getImage();
+        Image img2 = new ImageIcon(getClass().getClassLoader().getResource("imagen/duracell.png")).getImage();
         for (int i = 0; i < 6; i++) {
             int j = 0;
             while(j * 88 < uniW){
@@ -792,9 +764,6 @@ public class JuegoDeLadrillos extends javax.swing.JFrame implements KeyListener,
     private javax.swing.JMenu jMenu2;
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JMenuItem mniIniciar;
-    private javax.swing.JMenuItem mniNivel1;
-    private javax.swing.JMenuItem mniNivel2;
-    private javax.swing.JMenuItem mniNivel3;
     private javax.swing.JMenu mniNiveles;
     private javax.swing.JMenuItem mniParar;
     private javax.swing.JMenuItem mniRanking;

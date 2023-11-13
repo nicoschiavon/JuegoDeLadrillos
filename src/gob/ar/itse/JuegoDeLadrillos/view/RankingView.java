@@ -6,6 +6,7 @@ import java.awt.Image;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
+import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JMenuItem;
 import javax.swing.JPanel;
@@ -22,18 +23,20 @@ public class RankingView extends javax.swing.JFrame {
      */
     public RankingView() {
         initComponents();
+        this.setExtendedState(JFrame.MAXIMIZED_BOTH);
     }
 
     
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
+        java.awt.GridBagConstraints gridBagConstraints;
 
         jPanel1 = new FondoPanel();
-        txtTitulo = new javax.swing.JLabel();
+        btnReturn = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
         tblRanking = new javax.swing.JTable();
-        btnReturn = new javax.swing.JButton();
+        txtTitulo = new javax.swing.JLabel();
         cmbxRanking = new javax.swing.JComboBox<>();
         jMenuBar1 = new javax.swing.JMenuBar();
         mniArchivo = new javax.swing.JMenu();
@@ -43,13 +46,15 @@ public class RankingView extends javax.swing.JFrame {
         setBackground(new java.awt.Color(204, 255, 204));
 
         jPanel1.setBackground(new java.awt.Color(255, 255, 255));
+        jPanel1.setLayout(new java.awt.GridBagLayout());
 
-        txtTitulo.setBackground(new java.awt.Color(204, 255, 204));
-        txtTitulo.setFont(new java.awt.Font("Sitka Text", 1, 36)); // NOI18N
-        txtTitulo.setForeground(new java.awt.Color(51, 102, 255));
-        txtTitulo.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        txtTitulo.setIcon(new javax.swing.ImageIcon("C:\\Users\\nico_\\OneDrive\\Documentos\\NetBeansProjects\\New Folder\\JuegoDeLadrillosV4\\JuegoDeLadrillos\\resources\\Imagen\\ranking2.png")); // NOI18N
-        txtTitulo.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        btnReturn.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagen/return.png"))); // NOI18N
+        btnReturn.setVerticalAlignment(javax.swing.SwingConstants.TOP);
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 0;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
+        jPanel1.add(btnReturn, gridBagConstraints);
 
         jScrollPane1.setBackground(new java.awt.Color(255, 255, 255));
         jScrollPane1.setHorizontalScrollBarPolicy(javax.swing.ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
@@ -57,6 +62,7 @@ public class RankingView extends javax.swing.JFrame {
         jScrollPane1.setColumnHeaderView(tblRanking);
         jScrollPane1.setOpaque(false);
 
+        tblRanking.setBackground(new java.awt.Color(204, 204, 255));
         tblRanking.setFont(new java.awt.Font("Georgia", 1, 24)); // NOI18N
         tblRanking.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -79,7 +85,33 @@ public class RankingView extends javax.swing.JFrame {
         tblRanking.setTableHeader(null);
         jScrollPane1.setViewportView(tblRanking);
 
-        btnReturn.setIcon(new javax.swing.ImageIcon("C:\\Users\\nico_\\OneDrive\\Documentos\\NetBeansProjects\\New Folder\\JuegoDeLadrillosV4\\JuegoDeLadrillos\\resources\\Imagen\\return.png")); // NOI18N
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 2;
+        gridBagConstraints.gridy = 2;
+        gridBagConstraints.gridwidth = 2;
+        gridBagConstraints.gridheight = 2;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
+        gridBagConstraints.ipadx = 394;
+        gridBagConstraints.ipady = 705;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
+        gridBagConstraints.weightx = 1.0;
+        gridBagConstraints.weighty = 1.0;
+        gridBagConstraints.insets = new java.awt.Insets(6, 179, 0, 263);
+        jPanel1.add(jScrollPane1, gridBagConstraints);
+
+        txtTitulo.setBackground(new java.awt.Color(204, 255, 204));
+        txtTitulo.setFont(new java.awt.Font("Sitka Text", 1, 36)); // NOI18N
+        txtTitulo.setForeground(new java.awt.Color(51, 102, 255));
+        txtTitulo.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        txtTitulo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gob/ar/itse/JuegoDeLadrillos/view/ranking2.png"))); // NOI18N
+        txtTitulo.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 2;
+        gridBagConstraints.gridy = 0;
+        gridBagConstraints.gridheight = 2;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
+        gridBagConstraints.insets = new java.awt.Insets(0, 158, 0, 0);
+        jPanel1.add(txtTitulo, gridBagConstraints);
 
         cmbxRanking.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Ultimos Jugadores", "Top 10", "Top 100", "Top 1000" }));
         cmbxRanking.addActionListener(new java.awt.event.ActionListener() {
@@ -87,37 +119,13 @@ public class RankingView extends javax.swing.JFrame {
                 cmbxRankingActionPerformed(evt);
             }
         });
-
-        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
-        jPanel1.setLayout(jPanel1Layout);
-        jPanel1Layout.setHorizontalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(btnReturn)
-                        .addGap(283, 283, 283)
-                        .addComponent(txtTitulo))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(70, 70, 70)
-                        .addComponent(cmbxRanking, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(107, 107, 107)
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 530, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(205, Short.MAX_VALUE))
-        );
-        jPanel1Layout.setVerticalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(txtTitulo)
-                    .addComponent(btnReturn))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 323, Short.MAX_VALUE)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(cmbxRanking, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(0, 0, Short.MAX_VALUE))))
-        );
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 2;
+        gridBagConstraints.gridwidth = 2;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
+        gridBagConstraints.insets = new java.awt.Insets(6, 70, 0, 0);
+        jPanel1.add(cmbxRanking, gridBagConstraints);
 
         mniArchivo.setText("Archivo");
 
@@ -136,7 +144,7 @@ public class RankingView extends javax.swing.JFrame {
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 852, Short.MAX_VALUE)
         );
 
         pack();

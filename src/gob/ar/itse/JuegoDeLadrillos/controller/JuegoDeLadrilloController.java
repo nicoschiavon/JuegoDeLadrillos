@@ -57,7 +57,7 @@ public class JuegoDeLadrilloController extends JPanel implements ActionListener,
         
         this.random = new Random();
         this.paleta = new Paleta(ancho / 2,alto - 200);
-        this.pelota = new Objeto(ancho / 2 + (paleta.paletaWidth/2), alto -230);
+        //this.pelota = new Objeto(ancho / 2 + (paleta.paletaWidth/2), alto -230);
         nivel();
         
         
